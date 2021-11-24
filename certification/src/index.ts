@@ -32,11 +32,11 @@ async function run() {
           topic: "certification-response",
           messages: [
             {
-              value: `Certificado do usuário ${payload.user.name} do curso ${payload.course} gerado com sucesso!`,
+              value: `Certificate to user ${payload.user.name} from ${payload.course} course generated sucessfully!`,
             },
           ],
         });
-      }, 1000);
+      }, 100);
     },
   });
 }

@@ -7,7 +7,7 @@ routes.post("/certifications", async (request, response) => {
 
   const message = {
     user: { id: 1, name: "Matheus Costa" },
-    course: "Kafka com Node.js",
+    course: "Kafka with Node.js",
     grade: 10,
   };
 

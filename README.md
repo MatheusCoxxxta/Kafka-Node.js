@@ -1,15 +1,15 @@
-# Micro-serviço com Node.js
+# Microservice with Node.js
 
-- Utilizando Kafka;
-- Utilizando Node;
-- Utilizando TypeScript
+- Using Kafka;
+- Using Node;
+- Using TypeScript
 
-## Aplicações
+## Applications
 
-- API principal
-- Geração de certificado
+- Main API (server)
+- Certificate Generate (certification)
 
-## FLuxo
+## Project Flow
 
-- API principal envia uma mensagem pro serviço de cerificado para gerar certificado;
-- Micro-serviço de certificado devolve resposta (síncrona/assíncrona);
+- Main API sends a message to generate certificate microservice;
+- Generate certificate microservice sends a response;

@@ -33,12 +33,12 @@ async function run() {
   await consumer.subscribe({ topic });
 
   await consumer.run({
-    eachMessage: async ({ topic, partition, message }) => {
+    eachMessage: async ({ message }) => {
       console.log("Response: ", String(message.value));
     },
   });
 
-  console.log("Consumer connected");
+  console.log("Consumer connected!");
 
   app.listen(3333);
 }
