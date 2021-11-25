@@ -1,26 +1,21 @@
 import { Router } from "express";
+import { celebrate, Joi, Segments } from "celebrate";
+import { CoursesController } from "./controllers/CoursesController";
+
+const coursesController = new CoursesController();
 
 const routes = Router();
 
-routes.post("/certifications", async (request, response) => {
-  const { producer } = request;
-
-  const message = {
-    user: { id: 1, name: "Matheus Costa" },
-    course: "Kafka with Node.js",
-    grade: 10,
-  };
-
-  await producer.send({
-    topic: "issue-certificate",
-    messages: [
-      {
-        value: JSON.stringify(message),
-      },
-    ],
-  });
-
-  return response.json({ ok: true });
-});
+routes.post(
+  "/certifications",
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      name: Joi.string().required(),
+      course: Joi.string().required(),
+      grade: Joi.number().required(),
+    }),
+  }),
+  coursesController.concludeCourse
+);
 
 export default routes;
