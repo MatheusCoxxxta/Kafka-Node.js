@@ -1,18 +1,10 @@
 import express, { Request } from "express";
-import { Kafka, logLevel } from "kafkajs";
+import { kafka } from "./config/kafka";
 import routes from "./routes";
 
 const app = express();
 
-const kafka = new Kafka({
-  clientId: "api",
-  brokers: ["localhost:9092"],
-  retry: {
-    initialRetryTime: 300,
-    retries: 10,
-  },
-  logLevel: logLevel.WARN,
-});
+app.use(express.json());
 
 const producer = kafka.producer();
 const consumer = kafka.consumer({ groupId: "certificate-group-receiver" });
