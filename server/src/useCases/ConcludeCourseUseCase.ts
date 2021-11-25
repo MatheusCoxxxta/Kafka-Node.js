@@ -1,4 +1,4 @@
-import { ConcludeCourseDTO } from "../DTO/ConcludeCourseDTO";
+import { ConcludeCourseDTO } from "../dto/ConcludeCourseDTO";
 import { ICourse } from "../models/ICourse";
 import { Course } from "../models/implementations/Course";
 
