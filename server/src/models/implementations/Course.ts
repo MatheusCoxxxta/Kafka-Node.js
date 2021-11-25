@@ -24,8 +24,6 @@ class Course implements ICourse {
 
   public add({ name, course, grade }: CourseType): void {
     this.course.push({ name, course, grade });
-
-    console.log(this.course);
   }
 }
 
