@@ -1,4 +1,5 @@
 import { Kafka, logLevel } from "kafkajs";
+import { GenerateCertificateUseCase } from "../useCases/GenerateCertificateUseCase";
 
 interface IPayload {
   user: { id: number; user: string };
@@ -15,6 +16,8 @@ const kafka = new Kafka({
 const topic = "issue-certificate";
 const consumer = kafka.consumer({ groupId: "certificate-group" });
 
+const generateCertificateUseCase = new GenerateCertificateUseCase();
+
 const producer = kafka.producer();
 async function run() {
   await consumer.connect();
@@ -22,10 +25,19 @@ async function run() {
   await consumer.subscribe({ topic });
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
-      const prefix = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`;
-      console.log(`- ${prefix} ${message.key}#${message.value}`);
+      let payload: IPayload;
 
-      const payload: IPayload = JSON.parse(message.value);
+      if (message.value === null) {
+        payload = {} as IPayload;
+      } else {
+        payload = JSON.parse(message.value.toString());
+      }
+
+      const filePath = generateCertificateUseCase.execute({
+        course: payload.name,
+        user: payload.user.user,
+        grade: payload.grade,
+      });
 
       producer.send({
         topic: "certification-response",
