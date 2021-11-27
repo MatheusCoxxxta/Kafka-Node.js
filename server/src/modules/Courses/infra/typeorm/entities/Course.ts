@@ -15,7 +15,9 @@ class Course {
   @Column()
   grade: number;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   certificateUrl?: string;
 
   @CreateDateColumn()
