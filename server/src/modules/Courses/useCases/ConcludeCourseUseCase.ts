@@ -5,13 +5,14 @@ import { inject, injectable } from "tsyringe";
 @injectable()
 class ConcludeCourseUseCase {
   constructor(
-    private producer: Producer,
-
     @inject("CourseRepository")
     private courseRepository: ICourseRepository
   ) {}
 
-  async execute({ name, user, grade }: ConcludeCourseDTO): Promise<void> {
+  async execute(
+    { name, user, grade }: ConcludeCourseDTO,
+    producer: Producer
+  ): Promise<void> {
     const id = this.courseRepository.add({ name, user, grade });
 
     const message = {
@@ -20,7 +21,7 @@ class ConcludeCourseUseCase {
       grade,
     };
 
-    await this.producer.send({
+    await producer.send({
       topic: "issue-certificate",
       messages: [
         {
