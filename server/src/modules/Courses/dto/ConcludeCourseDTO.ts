@@ -1,6 +1,6 @@
 interface ConcludeCourseDTO {
+  user: string;
   name: string;
-  course: string;
   grade: number;
 }
 
