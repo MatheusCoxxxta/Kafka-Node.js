@@ -1,6 +1,8 @@
 import { ICourse } from "../ICourse";
+import { v4 as uuidV4 } from "uuid";
 
 export type CourseType = {
+  id: string;
   name: string;
   course: string;
   grade: number;
@@ -22,8 +24,12 @@ class Course implements ICourse {
     this.course = [];
   }
 
-  public add({ name, course, grade }: CourseType): void {
-    this.course.push({ name, course, grade });
+  public add({ name, course, grade }: CourseType): string {
+    const id = uuidV4();
+
+    this.course.push({ id, name, course, grade });
+
+    return id;
   }
 }
 
