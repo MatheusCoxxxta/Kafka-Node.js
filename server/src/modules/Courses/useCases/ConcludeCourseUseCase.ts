@@ -1,19 +1,18 @@
 import { ConcludeCourseDTO } from "../dto/ConcludeCourseDTO";
-import { ICourse } from "../models/ICourse";
-import { Course } from "../models/implementations/Course";
+import { ICourseRepository } from "../repositories/ICourseRepository";
 
 class ConcludeCourseUseCase {
-  private course: ICourse;
-  constructor(private producer: Producer) {
-    this.course = Course.getInstance();
-  }
+  constructor(
+    private producer: Producer,
+    private courseRepository: ICourseRepository
+  ) {}
 
-  async execute({ name, course, grade }: ConcludeCourseDTO): Promise<void> {
-    const id = this.course.add({ name, course, grade });
+  async execute({ name, user, grade }: ConcludeCourseDTO): Promise<void> {
+    const id = this.courseRepository.add({ name, user, grade });
 
     const message = {
-      user: { id, name },
-      course,
+      user: { id, user },
+      name,
       grade,
     };
 
