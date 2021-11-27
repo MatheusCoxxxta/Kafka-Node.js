@@ -20,7 +20,7 @@ class CourseRepository implements ICourseRepository {
 
   public async add({ name, user, grade }: ConcludeCourseDTO): Promise<string> {
     const createdCourse = this.repository.create({
-      user,
+      username: user,
       name,
       grade,
     });
