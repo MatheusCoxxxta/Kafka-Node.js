@@ -24,7 +24,8 @@ class FileUpload {
       Bucket: "certificates-application",
       Key: fileName,
       Body: body,
-      acl: "public-read",
+      ACL: "public-read",
+      ContentType: "application/pdf",
     };
 
     const options = { partSize: 10 * 1024 * 1024, queueSize: 1 };
