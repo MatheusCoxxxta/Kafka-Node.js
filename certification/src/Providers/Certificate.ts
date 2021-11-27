@@ -15,7 +15,10 @@ class Certificate {
       }
     }
 
-    const fileName = `${user}-${course.replace(".", "")}.pdf`;
+    const fileName = `${user}-${course.replace(
+      ".",
+      ""
+    )}-${new Date().getTime()}.pdf`;
 
     doc.pipe(fs.createWriteStream(`tmp/${fileName}`));
 
