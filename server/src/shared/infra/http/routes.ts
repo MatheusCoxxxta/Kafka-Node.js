@@ -11,7 +11,7 @@ routes.post(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
-      course: Joi.string().required(),
+      user: Joi.string().required(),
       grade: Joi.number().required(),
     }),
   }),
