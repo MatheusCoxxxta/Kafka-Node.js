@@ -9,10 +9,10 @@ class ConcludeCourseUseCase {
   }
 
   async execute({ name, course, grade }: ConcludeCourseDTO): Promise<void> {
-    this.course.add({ name, course, grade });
+    const id = this.course.add({ name, course, grade });
 
     const message = {
-      user: { id: 1, name },
+      user: { id, name },
       course,
       grade,
     };
