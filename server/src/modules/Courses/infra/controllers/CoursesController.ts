@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ConcludeCourseUseCase } from "../useCases/ConcludeCourseUseCase";
+import { ConcludeCourseUseCase } from "../../useCases/ConcludeCourseUseCase";
 
 class CoursesController {
   public async concludeCourse(request: Request, response: Response) {
