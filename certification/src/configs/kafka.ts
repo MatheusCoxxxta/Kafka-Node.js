@@ -1,10 +1,16 @@
 import { Kafka, logLevel } from "kafkajs";
 import { GenerateCertificateUseCase } from "../useCases/GenerateCertificateUseCase";
+import { UploadCertificateUseCase } from "../useCases/UploadCertificateUseCase";
 
 interface IPayload {
-  user: { id: number; user: string };
+  user: { id: string; user: string };
   name: string;
   grade: number;
+}
+
+interface ICertificateMessage {
+  courseId: string;
+  certificateUrl: string;
 }
 
 const kafka = new Kafka({
@@ -17,6 +23,7 @@ const topic = "issue-certificate";
 const consumer = kafka.consumer({ groupId: "certificate-group" });
 
 const generateCertificateUseCase = new GenerateCertificateUseCase();
+const uploadCertificateUseCase = new UploadCertificateUseCase();
 
 const producer = kafka.producer();
 async function run() {
@@ -33,17 +40,24 @@ async function run() {
         payload = JSON.parse(message.value.toString());
       }
 
-      const filePath = generateCertificateUseCase.execute({
+      const fileName = generateCertificateUseCase.execute({
         course: payload.name,
         user: payload.user.user,
         grade: payload.grade,
       });
 
+      const certificateUrl = await uploadCertificateUseCase.execute(fileName);
+
+      const cerificateMessage: ICertificateMessage = {
+        courseId: payload.user.id,
+        certificateUrl: certificateUrl || "",
+      };
+
       producer.send({
         topic: "certification-response",
         messages: [
           {
-            value: `Certificate to user ${payload.user.user} from ${payload.name} course generated sucessfully!`,
+            value: JSON.stringify(cerificateMessage),
           },
         ],
       });
