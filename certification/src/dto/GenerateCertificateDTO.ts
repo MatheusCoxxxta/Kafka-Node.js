@@ -3,3 +3,5 @@ interface GenerateCertificateDTO {
   course: string;
   grade: number;
 }
+
+export { GenerateCertificateDTO };
