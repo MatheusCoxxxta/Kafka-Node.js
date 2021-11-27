@@ -13,7 +13,7 @@ class ConcludeCourseUseCase {
     { name, user, grade }: ConcludeCourseDTO,
     producer: Producer
   ): Promise<void> {
-    const id = this.courseRepository.add({ name, user, grade });
+    const id = await this.courseRepository.add({ name, user, grade });
 
     const message = {
       user: { id, user },
