@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { celebrate, Joi, Segments } from "celebrate";
-import { CoursesController } from "./controllers/CoursesController";
+import { CoursesController } from "./modules/Courses/controllers/CoursesController";
 
 const coursesController = new CoursesController();
 

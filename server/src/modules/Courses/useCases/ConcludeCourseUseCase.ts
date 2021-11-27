@@ -21,6 +21,7 @@ class ConcludeCourseUseCase {
       topic: "issue-certificate",
       messages: [
         {
+          key: id,
           value: JSON.stringify(message),
         },
       ],
