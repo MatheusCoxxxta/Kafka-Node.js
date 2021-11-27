@@ -1,5 +1,7 @@
+import "reflect-metadata";
 import express, { Request } from "express";
-import { kafka } from "./config/kafka";
+import { kafka } from "../../../config/kafka";
+import "../typeorm";
 import routes from "./routes";
 
 const app = express();
