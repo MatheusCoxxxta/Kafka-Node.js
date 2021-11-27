@@ -1,9 +1,13 @@
 import { ConcludeCourseDTO } from "../dto/ConcludeCourseDTO";
 import { ICourseRepository } from "../repositories/ICourseRepository";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 class ConcludeCourseUseCase {
   constructor(
     private producer: Producer,
+
+    @inject("CourseRepository")
     private courseRepository: ICourseRepository
   ) {}
 
