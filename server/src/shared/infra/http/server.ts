@@ -29,7 +29,7 @@ async function run() {
 
   await consumer.run({
     eachMessage: async ({ message }) => {
-      console.log("Response: ", String(message.value));
+      console.log("Response: ", JSON.parse(message.value));
     },
   });
 
