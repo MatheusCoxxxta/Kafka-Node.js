@@ -10,7 +10,7 @@ class Course {
   name: string;
 
   @Column()
-  user: string;
+  username: string;
 
   @Column()
   grade: number;
