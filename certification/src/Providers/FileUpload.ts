@@ -18,8 +18,7 @@ class FileUpload {
       } as ICredentials,
     });
 
-    const fileDir = fs.readdirSync(`tmp/`)[0];
-    const body = fs.readFileSync(`tmp/${fileDir}`);
+    const body = fs.readFileSync(`tmp/${fileName}`);
 
     const params = {
       Bucket: "certificates-application",
