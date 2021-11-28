@@ -63,6 +63,7 @@ async function run() {
       });
     },
   });
+  console.log("Consumer connected!");
 }
 
 export { run };
