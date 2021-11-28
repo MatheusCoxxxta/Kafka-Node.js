@@ -46,21 +46,23 @@ async function run() {
         grade: payload.grade,
       });
 
-      const certificateUrl = await uploadCertificateUseCase.execute(fileName);
+      setTimeout(async () => {
+        const certificateUrl = await uploadCertificateUseCase.execute(fileName);
 
-      const cerificateMessage: ICertificateMessage = {
-        courseId: payload.user.id,
-        certificateUrl: certificateUrl || "",
-      };
+        const cerificateMessage: ICertificateMessage = {
+          courseId: payload.user.id,
+          certificateUrl: certificateUrl || "",
+        };
 
-      producer.send({
-        topic: "certification-response",
-        messages: [
-          {
-            value: JSON.stringify(cerificateMessage),
-          },
-        ],
-      });
+        producer.send({
+          topic: "certification-response",
+          messages: [
+            {
+              value: JSON.stringify(cerificateMessage),
+            },
+          ],
+        });
+      }, 300);
     },
   });
   console.log("Consumer connected!");
