@@ -1,7 +1,10 @@
 import { Consumer } from "kafkajs";
+import { Certificate } from "../Providers/Certificate";
 import { GenerateCertificateUseCase } from "../useCases/GenerateCertificateUseCase";
 
-const generateCertificateUseCase = new GenerateCertificateUseCase();
+const generateCertificateUseCase = new GenerateCertificateUseCase(
+  new Certificate()
+);
 
 interface IPayload {
   user: { id: string; user: string };
