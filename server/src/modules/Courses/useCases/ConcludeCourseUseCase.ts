@@ -9,27 +9,10 @@ class ConcludeCourseUseCase {
     private courseRepository: ICourseRepository
   ) {}
 
-  async execute(
-    { name, user, grade }: ConcludeCourseDTO,
-    producer: Producer
-  ): Promise<void> {
+  async execute({ name, user, grade }: ConcludeCourseDTO): Promise<string> {
     const id = await this.courseRepository.add({ name, user, grade });
 
-    const message = {
-      user: { id, user },
-      name,
-      grade,
-    };
-
-    await producer.send({
-      topic: "issue-certificate",
-      messages: [
-        {
-          key: id,
-          value: JSON.stringify(message),
-        },
-      ],
-    });
+    return id;
   }
 }
 
