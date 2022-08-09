@@ -1,8 +1,9 @@
 import { GenerateCertificateDTO } from "../dto/GenerateCertificateDTO";
 import PDFDocument from "pdfkit";
 import fs from "fs";
+import ICertificate from "./ICertificate";
 
-class Certificate {
+class Certificate implements ICertificate {
   create(user: string, course: string, level: string): string {
     const doc = new PDFDocument({
       layout: "landscape",
