@@ -2,7 +2,7 @@ import "reflect-metadata";
 import express, { Request } from "express";
 import "../../containers";
 import { kafka } from "../../../config/kafka";
-import "../typeorm";
+/* import "../typeorm"; */
 import routes from "./routes";
 
 const app = express();
@@ -23,18 +23,6 @@ app.use(routes);
 
 async function run() {
   await producer.connect();
-  await consumer.connect();
-
-  await consumer.subscribe({ topic });
-
-  await consumer.run({
-    eachMessage: async ({ message }) => {
-      console.log("Response: ", JSON.parse(message.value));
-    },
-  });
-
-  console.log("Consumer connected!");
-
   app.listen(3333);
 }
 
