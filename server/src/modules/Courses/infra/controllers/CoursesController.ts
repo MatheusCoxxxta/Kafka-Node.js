@@ -9,7 +9,23 @@ class CoursesController {
 
     const concludeCourseUseCase = container.resolve(ConcludeCourseUseCase);
 
-    await concludeCourseUseCase.execute({ name, user, grade }, producer);
+    const id = await concludeCourseUseCase.execute({ name, user, grade });
+
+    const message = {
+      user: { id, user },
+      name,
+      grade,
+    };
+
+    await producer.send({
+      topic: "issue-certificate",
+      messages: [
+        {
+          key: id,
+          value: JSON.stringify(message),
+        },
+      ],
+    });
 
     return response.json({ ok: true });
   }
